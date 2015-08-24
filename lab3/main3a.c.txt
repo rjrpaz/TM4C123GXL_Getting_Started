@@ -1,0 +1,43 @@
+#include <stdint.h>
+#include <stdbool.h>
+#include "inc/hw_memmap.h"
+#include "inc/hw_types.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/gpio.h"
+
+uint8_t ui8PinData=2;
+
+int main(void)
+{
+	// Selecciona un cristal de 16 Mhz.
+	// Además selecciona el PLL de 400Mhz. Dividida por 2 (esto es por defecto), esta es la frecuencia de uso.
+	// Además divide por 5 la salida del PLL.
+	// La frecuencia resultante es de 40 Mhz.
+	SysCtlClockSet(SYSCTL_SYSDIV_5|SYSCTL_USE_PLL|SYSCTL_XTAL_16MHZ|SYSCTL_OSC_MAIN);
+
+	// Antes de realizar llamadas a alguna función definida
+	// en la librería "driverlib", debemos habilitar el reloj
+	// para el GPIO que vayamos a utilizar.
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+
+	// Define los tres pines del puerto F conectados a los leds, como salidas
+	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
+
+	while(1)
+	{
+		// Prende el led
+		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, ui8PinData);
+		SysCtlDelay(4000000);
+
+		// Apaga el led
+		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, 0x00);
+		SysCtlDelay(4000000);
+
+		// Corre el led seleccionado. Vale 2,4,8,2,4,8,2 ... // 3a
+		if(ui8PinData==8) {
+			ui8PinData=2;
+		} else {
+			ui8PinData=ui8PinData*2;
+		}
+	}
+}

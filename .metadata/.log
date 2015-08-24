@@ -961,3 +961,42 @@ Binding(CTRL+SHIFT+H,
 !MESSAGE Executor shut down while executing Sequence Sequence "", result for executing step #11 = Status ERROR: org.eclipse.cdt.dsf code=10005 Request for monitor: 'RequestMonitor (com.ti.ccstudio.debug.launch.ServicesShutdownSequence$3@1ae6ef0): Status OK: unknown code=0 OK null' resulted in a rejected execution exception. null, step #11
 !SUBENTRY 1 org.eclipse.cdt.dsf 4 10005 2015-08-24 13:30:27.136
 !MESSAGE Request for monitor: 'RequestMonitor (com.ti.ccstudio.debug.launch.CCSLaunch$3@cbbac2): Status ERROR: org.eclipse.cdt.dsf code=0 Executor shut down while executing Sequence Sequence "", result for executing step #11 = Status ERROR: org.eclipse.cdt.dsf code=10005 Request for monitor: 'RequestMonitor (com.ti.ccstudio.debug.launch.ServicesShutdownSequence$3@1ae6ef0): Status OK: unknown code=0 OK null' resulted in a rejected execution exception. null, step #11 null' resulted in a rejected execution exception.
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-08-24 13:58:05.617
+!MESSAGE Indexed 'lab3conBotones' (2 sources, 1 headers) in 0,352 sec: 52 declarations; 142 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-08-24 13:58:07.658
+!MESSAGE Indexed 'lab3conBotones' (2 sources, 1 headers) in 0,013 sec: 52 declarations; 142 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-08-24 13:58:10.674
+!MESSAGE Indexed 'lab3conBotones' (2 sources, 1 headers) in 0,013 sec: 52 declarations; 143 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY com.ti.ccstudio.project.core 4 0 2015-08-24 14:33:08.019
+!MESSAGE Error loading built-in project symbols: error: option --include_path is missing its parameter 'dir'
+
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-08-24 14:45:32.756
+!MESSAGE Indexed 'lab3' (2 sources, 10 headers) in 0,119 sec: 337 declarations; 453 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-08-24 14:45:52.179
+!MESSAGE Indexed 'lab3conBotones' (2 sources, 10 headers) in 0,119 sec: 339 declarations; 455 references; 0 unresolved inclusions; 0 syntax errors; 2 unresolved names (0,25%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2015-08-24 16:14:29.275
+!MESSAGE Indexed 'lab3conBotones' (2 sources, 10 headers) in 0,157 sec: 339 declarations; 455 references; 0 unresolved inclusions; 0 syntax errors; 2 unresolved names (0,25%)
+
+!ENTRY com.ti.ccstudio.debug 1 0 2015-08-24 18:23:10.919
+!MESSAGE DS_ERROR: CORTEX_M4_0: Error: Connection with the target was unexpectedly lost.
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2015-08-24 18:23:16.485
+!MESSAGE DS_ERROR: CORTEX_M4_0: Failed to remove the debug state from the target before disconnecting.  There may still be breakpoint op-codes embedded in program memory.  It is recommended that you reset the emulator before you connect and reload your program before you continue debugging
+
+
+!ENTRY com.ti.ccstudio.debug 1 0 2015-08-24 19:37:47.151
+!MESSAGE DS_ERROR: CORTEX_M4_0: GEL: Target must be connected before calling the function
+
+
+!ENTRY org.eclipse.cdt.dsf 4 10005 2015-08-24 19:37:47.327
+!MESSAGE Request for monitor: 'RequestMonitor (org.eclipse.cdt.dsf.concurrent.RequestMonitor@139936): Status ERROR: com.ti.ccstudio.debug code=20003 Target must be connected before calling the function null' resulted in an error.
+!SUBENTRY 1 com.ti.ccstudio.debug 4 20003 2015-08-24 19:37:47.327
+!MESSAGE Target must be connected before calling the function

@@ -11,6 +11,7 @@ main.obj: C:/ti/TivaWare_C_Series-2.1.1.71/inc/hw_memmap.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.1.71/inc/hw_types.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.1.71/driverlib/sysctl.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.1.71/driverlib/gpio.h
+main.obj: ../buttons.h
 
 ../main.c: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-arm_5.2.5/include/stdint.h: 
@@ -23,3 +24,4 @@ C:/ti/TivaWare_C_Series-2.1.1.71/inc/hw_memmap.h:
 C:/ti/TivaWare_C_Series-2.1.1.71/inc/hw_types.h: 
 C:/ti/TivaWare_C_Series-2.1.1.71/driverlib/sysctl.h: 
 C:/ti/TivaWare_C_Series-2.1.1.71/driverlib/gpio.h: 
+../buttons.h: 

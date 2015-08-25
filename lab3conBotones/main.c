@@ -4,6 +4,10 @@
 #include "inc/hw_types.h"
 #include "driverlib/sysctl.h"
 #include "driverlib/gpio.h"
+#include "buttons.h"
+
+#define APP_BUTTON_POLL_DIVIDER          8
+
 
 #define LEFT_BUTTON             GPIO_PIN_4
 #define RIGHT_BUTTON            GPIO_PIN_0
@@ -21,7 +25,7 @@ bool BotonPosicion=FALSE, BotonPosicionAnterior=FALSE;
 
 uint8_t ui8PinAnterior=0;
 
-bool AntiRebote (uint32_t, bool);
+void AppButtonHandler(void);
 
 int main(void)
 {
@@ -39,17 +43,22 @@ int main(void)
 	// Define los tres pines del puerto F conectados a los leds, como salidas
 	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3);
 
-	// Define los tres pines del puerto F conectados a los switch, como salida
-	GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, LEFT_BUTTON|RIGHT_BUTTON);
+	// Define los tres pines del puerto F conectados a los switch, como entrada
+//	GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, LEFT_BUTTON|RIGHT_BUTTON);
+	ButtonsInit();
 
 
 	while(1)
 	{
 		// Almaceno el valor de los botones
 //		ui32Buttons = GPIOPinRead(BUTTONS_GPIO_BASE, ALL_BUTTONS);
-		BotonEncender = AntiRebote(LEFT_BUTTON, BotonEncenderAnterior);
+//		BotonEncender = AntiRebote(LEFT_BUTTON, BotonEncenderAnterior);
+	    ui32Buttons = ButtonsPoll(0,0);
+
+	    AppButtonHandler();
 
 		// Botón izquierdo prende y apaga leds
+#if 0
 	    if (!BotonEncenderAnterior && BotonEncender) {
 	    	if (onOff) {
 	    		// Apaga el led
@@ -74,27 +83,60 @@ int main(void)
 	    }
 	    BotonEncenderAnterior=BotonEncender;
 	    BotonPosicionAnterior=BotonPosicion;
+#endif
 	}
 }
 
-bool AntiRebote (uint32_t BitPosition, bool Anterior)
+
+void
+AppButtonHandler(void)
 {
-	uint32_t ui32Buttons=0;
-	bool Actual=FALSE;
+    static uint32_t ui32TickCounter;
 
-	ui32Buttons = GPIOPinRead(BUTTONS_GPIO_BASE, ALL_BUTTONS);
-    if (ui32Buttons & BitPosition)
-    	Actual=TRUE;
-    else
-    	Actual=FALSE;
-    if (Anterior != Actual) {
-    	SysCtlDelay(100000);
-    	ui32Buttons = GPIOPinRead(BUTTONS_GPIO_BASE, ALL_BUTTONS);
-        if (ui32Buttons & BitPosition)
-        	Actual=TRUE;
-        else
-        	Actual=FALSE;
+    ui32TickCounter++;
+
+    //
+    // Switch statement to adjust the color wheel position based on buttons
+    //
+    switch(ui32Buttons & ALL_BUTTONS)
+    {
+
+    case LEFT_BUTTON:
+
+        //
+        // Check if the button has been held int32_t enough to peform another
+        // color wheel increment.
+        //
+        if((ui32TickCounter % APP_BUTTON_POLL_DIVIDER) == 0)
+        {
+	    	if (onOff) {
+	    		// Apaga el led
+	    		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, 0x00);
+	    		onOff = 0;
+	    	} else {
+	    		// Prende el led
+	    		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, ui8PinData);
+	    		onOff = 1;
+	    	}
+        }
+
+        break;
+
+    case RIGHT_BUTTON:
+
+        //
+        // Check if the button has been held int32_t enough to perform another
+        // color wheel decrement.
+        //
+        if((ui32TickCounter % APP_BUTTON_POLL_DIVIDER) == 0)
+        {
+	    	if(ui8PinData==8) {
+	    		ui8PinData=2;
+	    	} else {
+	    		ui8PinData=ui8PinData*2;
+	    	}
+        }
+        break;
+
     }
-
-    return Actual;
 }

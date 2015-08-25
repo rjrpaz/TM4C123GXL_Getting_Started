@@ -93,7 +93,7 @@ ButtonsPoll(uint8_t *pui8Delta, uint8_t *pui8RawState)
     // (inverting the bit sense) if the caller supplied storage for the
     // raw value.
     //
-    ui32Data = (ROM_GPIOPinRead(BUTTONS_GPIO_BASE, ALL_BUTTONS));
+    ui32Data = (GPIOPinRead(BUTTONS_GPIO_BASE, ALL_BUTTONS));
     if(pui8RawState)
     {
         *pui8RawState = (uint8_t)~ui32Data;
@@ -163,7 +163,7 @@ ButtonsInit(void)
     //
     // Enable the GPIO port to which the pushbuttons are connected.
     //
-    ROM_SysCtlPeripheralEnable(BUTTONS_GPIO_PERIPH);
+    SysCtlPeripheralEnable(BUTTONS_GPIO_PERIPH);
 
     //
     // Unlock PF0 so we can change it to a GPIO input
@@ -177,7 +177,7 @@ ButtonsInit(void)
     //
     // Set each of the button GPIO pins as an input with a pull-up.
     //
-    ROM_GPIODirModeSet(BUTTONS_GPIO_BASE, ALL_BUTTONS, GPIO_DIR_MODE_IN);
+    GPIODirModeSet(BUTTONS_GPIO_BASE, ALL_BUTTONS, GPIO_DIR_MODE_IN);
     MAP_GPIOPadConfigSet(BUTTONS_GPIO_BASE, ALL_BUTTONS,
                          GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
 
@@ -185,7 +185,7 @@ ButtonsInit(void)
     // Initialize the debounced button state with the current state read from
     // the GPIO bank.
     //
-    g_ui8ButtonStates = ROM_GPIOPinRead(BUTTONS_GPIO_BASE, ALL_BUTTONS);
+    g_ui8ButtonStates = GPIOPinRead(BUTTONS_GPIO_BASE, ALL_BUTTONS);
 }
 
 //*****************************************************************************
